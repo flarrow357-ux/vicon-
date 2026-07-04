@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Vicon / experiment data: do not commit raw trials or reconstructed trajectories.
+*.c3d
+*.x1d
+*.x2d
+*.xcp
+*.system
+*.history
+*.Trial.enf
+*.digitaldevices.xml
+*.avi
+*.mp4
+*.mov
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+temp_*
+

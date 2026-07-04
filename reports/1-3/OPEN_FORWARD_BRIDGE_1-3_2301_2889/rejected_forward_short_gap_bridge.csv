@@ -1,0 +1,3 @@
+﻿marker,gap_start,gap_end,frame,reason,support,mean_error,details
+RTROC,2448,2448,2448,weak_rigid_support,3,32.09878076060374,RTH:128.1/153.0/err25.0;RMEP:381.4/423.8/err42.3;RLEP:338.5/367.6/err29.0
+RTROC,2450,2450,2450,weak_rigid_support,3,33.48094093395983,RTH:127.0/153.0/err26.0;RMEP:380.1/423.8/err43.7;RLEP:336.8/367.6/err30.7

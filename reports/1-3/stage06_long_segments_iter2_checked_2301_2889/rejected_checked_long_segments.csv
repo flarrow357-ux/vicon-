@@ -1,0 +1,2 @@
+﻿marker,raw,start,end,segment_len,left_frame,right_frame,left_jump,right_jump,max_step,max_pred,max_report_segerr,max_model_err,min_support,reason
+RSHO,*65,2619,2808,190,2567,2810,161.17556002156078,2.3888404395653757,16.107881467998862,8.814432652794862,17.416867733023622,17.416867733023622,2,failed_long_segment_audit

@@ -1,0 +1,9 @@
+﻿frame,marker,raw,anchor_frame,distance,second_distance,candidate_count,radius_limit,support,mean_error,search_offset,details,method
+2493,LBHD,*53,2490,24.811091819150295,,1,45.0,2,1.0240318113831393,2,RFHD:210.6/209.4/err1.2;LFHD:169.4/170.3/err0.9,forward_current_first_grey_connect
+2494,LBHD,*53,2493,8.06971334400099,,1,45.0,2,0.4799877932419321,0,RFHD:210.2/209.4/err0.8;LFHD:170.5/170.3/err0.2,forward_current_first_grey_connect
+2495,LBHD,*53,2494,9.135075133257223,,1,45.0,2,0.7072775357112846,0,RFHD:210.6/209.4/err1.2;LFHD:170.5/170.3/err0.2,forward_current_first_grey_connect
+2498,LBHD,*53,2495,29.62723852611482,,1,45.0,2,0.6938764254547607,2,RFHD:210.5/209.4/err1.1;LFHD:170.6/170.3/err0.3,forward_current_first_grey_connect
+2500,LBHD,*53,2498,21.487926256198023,,1,45.0,2,0.6563711404214416,1,RFHD:210.4/209.4/err1.0;LFHD:170.6/170.3/err0.3,forward_current_first_grey_connect
+2502,LBHD,*56,2500,22.857606001450474,,1,25.0,2,0.6730756220387093,1,RFHD:210.4/209.4/err1.0;LFHD:170.6/170.3/err0.3,forward_current_first_grey_connect
+2503,LBHD,*56,2502,11.976777696262507,,1,25.0,2,0.5215455257378636,0,RFHD:210.1/209.4/err0.7;LFHD:170.6/170.3/err0.3,forward_current_first_grey_connect
+2504,LBHD,*56,2503,12.382269450377231,,1,25.0,2,0.6673349067243493,0,RFHD:210.4/209.4/err1.0;LFHD:170.6/170.3/err0.4,forward_current_first_grey_connect

@@ -1,0 +1,9 @@
+﻿direction,frame,marker,raw,anchor_frame,distance,second_distance,candidate_count,support,mean_error,search_offset,details,reason
+forward,2397,C7,*58,2391,21.326391809579093,46.23478345434575,2,3,8.947753336526896,4,CLAV:145.6/143.8/err1.8;STRN:275.5/282.9/err7.5;T10:194.9/212.4/err17.5,ambiguous_competing_unlabeled
+forward,2402,C7,*54,2396,24.771910367439283,44.793365839303235,2,3,9.59948657737248,4,CLAV:146.0/143.8/err2.2;STRN:275.5/282.9/err7.4;T10:193.2/212.4/err19.2,ambiguous_competing_unlabeled
+forward,2435,C7,*53,2430,31.320246536128803,45.09484556633553,2,3,10.99039199406775,3,CLAV:146.9/143.8/err3.1;STRN:276.0/282.9/err7.0;T10:189.5/212.4/err22.9,ambiguous_competing_unlabeled
+forward,2496,LFIN,*56,2493,41.88560099690624,,1,2,29.267587501529885,1,LDW:183.5/235.1/err51.7;LWRB:89.9/108.9/err18.9;LWRA:89.1/106.3/err17.2,mean_error_above_forward_limit
+forward,2498,LFIN,*56,2495,44.08233843217071,,1,2,30.63717296687804,1,LDW:179.8/235.1/err55.3;LWRB:90.8/108.9/err18.0;LWRA:87.7/106.3/err18.5,mean_error_above_forward_limit
+forward,2500,LFIN,*56,2497,41.82522898942387,,1,2,33.512490365800865,1,LDW:177.6/235.1/err57.5;LWRB:88.0/108.9/err20.9;LWRA:84.2/106.3/err22.1,mean_error_above_forward_limit
+forward,2502,LFIN,*52,2499,49.259103109038215,,1,2,33.04435424187441,1,LDW:175.4/235.1/err59.7;LWRB:89.1/108.9/err19.8;LWRA:86.6/106.3/err19.6,mean_error_above_forward_limit
+forward,2504,LFIN,*56,2501,49.770011005075844,,1,2,33.335319205744334,1,LDW:178.5/235.1/err56.7;LWRB:85.2/108.9/err23.7;LWRA:86.6/106.3/err19.7,mean_error_above_forward_limit

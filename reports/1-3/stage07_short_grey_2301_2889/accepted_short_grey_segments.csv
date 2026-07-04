@@ -1,0 +1,2 @@
+﻿frame,marker,raw,gap_start,gap_end,gap_len,left_frame,right_frame,score,pred_dist,seg_error,support,margin,method
+2849,LFIN,*58,2849,2849,1,2848,2850,-0.855477115297079,10.298913158649517,0.5637398173689357,3,999.0,short_grey_segment_connect

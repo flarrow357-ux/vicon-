@@ -1,0 +1,5 @@
+﻿frame,marker,raw,anchor_frame,distance,second_distance,candidate_count,search_offset,radius_limit,support,mean_error,details,reason
+2435,C7,*53,2432,23.448196284803785,45.52015894886128,2,2,60.0,3,10.99039199406775,CLAV:146.9/143.8/err3.1;STRN:276.0/282.9/err7.0;T10:189.5/212.4/err22.9,ambiguous_competing_unlabeled
+2495,LFIN,*56,2494,19.838023573851665,,1,0,60.0,2,31.1970519866357,LDW:180.4/235.1/err54.7;LWRB:89.2/108.9/err19.7;LWRA:87.1/106.3/err19.1,mean_error_above_marker_limit
+2496,LFIN,*56,2494,41.88560099690624,,1,1,60.0,2,29.267587501529885,LDW:183.5/235.1/err51.7;LWRB:89.9/108.9/err18.9;LWRA:89.1/106.3/err17.2,mean_error_above_marker_limit
+2496,LFIN,*56,2494,41.88560099690624,,1,0,60.0,2,29.267587501529885,LDW:183.5/235.1/err51.7;LWRB:89.9/108.9/err18.9;LWRA:89.1/106.3/err17.2,mean_error_above_marker_limit
