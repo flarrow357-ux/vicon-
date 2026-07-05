@@ -86,6 +86,8 @@ python ".\scripts\verify_grey_only_result.py" `
   --report-dir "E:\vicon gpt\新实验输出\verify"
 ```
 
+注意：`--original-c3d` 指的是本轮脚本处理前的输入基线文件。如果用户已经在 Nexus 中手动改过并保存，应使用手动修改后的 C3D 作为本轮输入基线，而不是更早的原始采集文件。
+
 验证通过必须同时满足：
 
 - 区间外未修改。
@@ -93,3 +95,4 @@ python ".\scripts\verify_grey_only_result.py" `
 - 结束帧完整。
 - 新增人体点全部来自原始同帧灰点。
 - 程序生成或插值点数量为 0。
+- 每一帧有效点总数和原始 C3D 完全一致，不能增加点，也不能删除点。

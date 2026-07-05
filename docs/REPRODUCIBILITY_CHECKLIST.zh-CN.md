@@ -50,10 +50,11 @@ python ".\scripts\run_full_grey_pipeline.py" `
 
 ## 完全复现成功标准
 
-运行结束后，`report_verify/verify_summary.json` 中必须满足：
+运行结束后，`report_verify/verify_summary.json` 中必须满足。这里的原始文件指本轮脚本处理前的输入基线文件；如果之前有人手动修改过，应以手动修改后的 C3D 作为本轮输入基线。
 
 - `passed` 为 `true`
 - `not_from_same_frame_raw` 为 `0`
+- `frames_with_point_count_change` 为 `0`
 - `changed_before_interval` 为 `false`
 - `changed_after_interval` 为 `false`
 - `start_complete` 为 `true`
@@ -67,4 +68,3 @@ python ".\scripts\run_full_grey_pipeline.py" `
 - 球拍靠近身体的帧。
 - 手部和肘部快速运动帧。
 - 遮挡较严重、灰点密集的帧。
-

@@ -47,7 +47,20 @@ def main():
 
     raw_by_frame = {}
     removed_raw_rows = []
+    point_count_change_rows = []
     for frame_i in range(start_i, end_i + 1):
+        original_valid_points = int(np.sum(valid_orig[frame_i]))
+        final_valid_points = int(np.sum(valid_final[frame_i]))
+        if original_valid_points != final_valid_points:
+            point_count_change_rows.append(
+                {
+                    "frame": frame_i + final_layout.first_frame,
+                    "original_valid_points": original_valid_points,
+                    "final_valid_points": final_valid_points,
+                    "delta": final_valid_points - original_valid_points,
+                }
+            )
+
         items = []
         for label in final_layout.labels:
             if not label.startswith("*"):
@@ -106,6 +119,7 @@ def main():
         "new_human_points": len(new_human_rows),
         "removed_raw_points": len(removed_raw_rows),
         "not_from_same_frame_raw": len(not_from_raw_rows),
+        "frames_with_point_count_change": len(point_count_change_rows),
         "changed_before_interval": changed_before,
         "changed_after_interval": changed_after,
         "start_complete": start_complete,
@@ -113,6 +127,7 @@ def main():
         "new_by_marker": dict(sorted(new_by_marker.items())),
         "passed": (
             len(not_from_raw_rows) == 0
+            and len(point_count_change_rows) == 0
             and not changed_before
             and not changed_after
             and start_complete
@@ -124,6 +139,7 @@ def main():
     base.write_csv(args.report_dir / "verify_new_human_points.csv", new_human_rows)
     base.write_csv(args.report_dir / "verify_removed_raw_points.csv", removed_raw_rows)
     base.write_csv(args.report_dir / "verify_not_from_same_frame_raw.csv", not_from_raw_rows)
+    base.write_csv(args.report_dir / "verify_point_count_changes.csv", point_count_change_rows)
     (args.report_dir / "verify_summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -135,4 +151,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
