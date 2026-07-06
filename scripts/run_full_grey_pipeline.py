@@ -29,12 +29,15 @@ def copy_trial_sidecars(src_c3d: Path, dst_c3d: Path):
 
     for ext in SIDECAR_EXTENSIONS:
         src = src_dir / f"{src_base}{ext}"
-        if src.exists():
-            shutil.copy2(src, dst_dir / f"{dst_base}{ext}")
+        dst = dst_dir / f"{dst_base}{ext}"
+        if src.exists() and src.resolve() != dst.resolve():
+            shutil.copy2(src, dst)
 
     for ext in MODEL_EXTENSIONS:
         for src in src_dir.glob(f"*{ext}"):
-            shutil.copy2(src, dst_dir / src.name)
+            dst = dst_dir / src.name
+            if src.resolve() != dst.resolve():
+                shutil.copy2(src, dst)
 
 
 def run_command(command):
