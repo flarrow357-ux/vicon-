@@ -42,42 +42,38 @@
 ## 推荐执行命令
 
 ```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
+python ".\scripts\run_active_g_workflow.py" `
   --input-c3d "本地实验数据\trial.c3d" `
   --model ".\model\1234.mkr" `
-  --output-root "本地输出目录" `
   --start-frame 起始帧 `
-  --end-frame 结束帧
+  --end-frame 结束帧 `
+  --mode suggest
 ```
 
-最终 C3D 文件名必须在原文件名末尾加 `g`。不填写 `--final-name` 时脚本会自动执行该规则；如果填写了没有以 `g` 结尾的名称，脚本也会自动补 `g`。
+最终工作 C3D 文件名必须在原文件名末尾加 `g`。例如 `trial.c3d` 的工作文件为同目录 `trialg.c3d`。后续人工补点和自动迭代都继续修改这个 `trialg.c3d`。
 
 ## 推荐的人机协作命令
 
 第一步：自动连一轮并推荐人工关键帧，然后停止。
 
 ```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
+python ".\scripts\run_active_g_workflow.py" `
   --input-c3d "本地实验数据\trial.c3d" `
   --model ".\model\1234.mkr" `
-  --output-root "本地输出目录_关键帧推荐" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --suggest-manual-frames `
-  --stop-after-suggestion
+  --mode suggest
 ```
 
 第二步：人工补完推荐帧后，以人工保存后的 C3D 为输入，连续运行两轮迭代并连接区间前后。
 
 ```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
-  --input-c3d "人工保存后的文件.c3d" `
+python ".\scripts\run_active_g_workflow.py" `
+  --input-c3d "本地实验数据\trialg.c3d" `
   --model ".\model\1234.mkr" `
-  --output-root "本地输出目录_最终版" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --second-iteration `
-  --connect-outside
+  --mode final
 ```
 
 ## 完全复现成功标准
@@ -94,7 +90,7 @@ python ".\scripts\run_full_grey_pipeline.py" `
 
 如果使用了 `--connect-outside`，还需要检查：
 
-- `stage04_connect_outside/report_verify_full/verify_full_summary.json` 中 `passed` 为 `true`
+- `_processing_reports/active_stage02_final/report_verify_full/verify_full_summary.json` 中 `passed` 为 `true`
 - `not_from_same_frame_raw` 为 `0`
 - `frames_with_point_count_change` 为 `0`
 - `new_human_points` 等于 `removed_raw_points`

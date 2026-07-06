@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ## 一键复现
 
-推荐使用一键流程脚本。它会自动执行：
+推荐使用 `run_active_g_workflow.py`。它会自动执行：
 
 1. 正向灰点连接。
 2. 复制 Nexus trial 配套文件。
@@ -31,52 +31,38 @@ pip install -r requirements.txt
 4. 最终验证新增人体点是否全部来自原始同帧灰点。
 5. 逐帧验证有效点总数是否完全不变。
 
-如果希望得到更高质量结果，推荐采用“人工关键帧协作流程”：
+如果希望得到更高质量结果，推荐采用“同目录 g 文件人工关键帧协作流程”：
 
 1. 先自动连一轮，并让脚本推荐最值得人工补全的关键帧。
-2. 用户在 Nexus 中打开第一轮结果，把推荐帧人工连完整并保存。
-3. 再把人工保存后的 C3D 作为新输入，自动执行第一轮迭代、第二轮迭代和区间前后连接。
-4. 最终使用全文件验证，确认没有新增点、没有删除点，所有新人体点都来自同帧灰点。
-
-```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
-  --input-c3d "E:\vicon gpt\新实验\1-3.c3d" `
-  --model ".\model\1234.mkr" `
-  --output-root "E:\vicon gpt\新实验输出" `
-  --start-frame 2301 `
-  --end-frame 2889
-```
-
-不填写 `--final-name` 时，最终文件会自动使用输入 C3D 文件名并在末尾加 `g`，例如 `1-3.c3d` 输出为 `1-3g.c3d`。如果手动填写 `--final-name "1-3"`，脚本也会自动规范为 `1-3g`。
+2. 脚本直接在原实验文件夹内生成 `原文件名g.c3d`。
+3. 用户在 Nexus 中打开这个 `原文件名g.c3d`，把推荐帧人工连完整并保存。
+4. 再以同一个 `原文件名g.c3d` 为输入，自动执行第一轮迭代、第二轮迭代和区间前后连接，并继续覆盖同名文件。
+5. 最终使用全文件验证，确认没有新增点、没有删除点，所有新人体点都来自同帧灰点。
 
 人工关键帧推荐阶段：
 
 ```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
+python ".\scripts\run_active_g_workflow.py" `
   --input-c3d "E:\vicon gpt\新实验\1-3.c3d" `
   --model ".\model\1234.mkr" `
-  --output-root "E:\vicon gpt\新实验输出_关键帧推荐" `
   --start-frame 2301 `
   --end-frame 2889 `
-  --suggest-manual-frames `
-  --stop-after-suggestion
+  --mode suggest
 ```
 
 推荐帧会写入：
 
-`stage02_iter1_reverse_grey/report_suggest_manual_anchor_frames/suggested_manual_anchor_frames.csv`
+`_processing_reports/active_stage01_suggest/report_suggest_manual_anchor_frames/suggested_manual_anchor_frames.csv`
 
 人工补完推荐帧并保存后，继续完整自动流程：
 
 ```powershell
-python ".\scripts\run_full_grey_pipeline.py" `
-  --input-c3d "E:\vicon gpt\新实验输出_关键帧推荐\stage02_iter1_reverse_grey\人工保存后的文件.c3d" `
+python ".\scripts\run_active_g_workflow.py" `
+  --input-c3d "E:\vicon gpt\新实验\1-3g.c3d" `
   --model ".\model\1234.mkr" `
-  --output-root "E:\vicon gpt\新实验输出_最终版" `
   --start-frame 2301 `
   --end-frame 2889 `
-  --second-iteration `
-  --connect-outside
+  --mode final
 ```
 
 如果验证没有通过，脚本会以失败状态退出，并在输出目录写出问题报告。
@@ -115,7 +101,7 @@ python ".\scripts\run_full_grey_pipeline.py" `
 - C7 已有效时，LBHD 可以在更严格刚体验证下适当放宽。
 - 正向完成后，可只逆向补连一次灰点。
 - 第一轮完成后，可推荐“最值得人工补全”的关键帧；人工补帧后再连续执行两轮迭代和区间前后连接。
-- 最终完成文件统一在原文件名末尾加 `g`，例如 `2-2.c3d` 输出 `2-2g.c3d`。
+- 当前默认工作方式是在原实验文件夹内直接维护 `原文件名g.c3d`；人工和程序都继续改这个同名文件。
 - 最终必须验证新增点全部来自同帧原始灰点。
 
 ## 复现保证

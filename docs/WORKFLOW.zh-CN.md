@@ -121,11 +121,15 @@
 
 ## 6. 输出规则
 
-每次处理必须输出到新文件夹，不覆盖原始数据。输出文件夹应包含：
+当前默认流程不再把主要结果放到单独输出文件夹，而是在原实验文件夹中维护 `原文件名g.c3d`。规则如下：
 
-- 新 C3D 文件。
-- 与 trial 对应的 `.x1d/.x2d/.xcp/.system/.history/.Trial.enf/.digitaldevices.xml` 等配套文件。
-- `report/` 目录，保存所有 accepted/skipped/search log CSV。
+- 原始 `原文件名.c3d` 不覆盖。
+- 第一次自动连点后，在同目录生成或覆盖 `原文件名g.c3d`。
+- 用户手动补推荐帧时，直接打开并保存 `原文件名g.c3d`。
+- 后续自动迭代和区间前后连接，继续覆盖同一个 `原文件名g.c3d`。
+- 与 trial 对应的 `.x1d/.x2d/.xcp/.system/.history/.Trial.enf/.digitaldevices.xml` 等配套文件使用同样的 `g` 文件名前缀。
+- 模型文件 `.mp/.vsk/.vst/.mkr` 必须保留在同一文件夹中，避免 Nexus 打开后模型丢失。
+- `_processing_reports/` 目录保存备份、中间文件、accepted/skipped/search log CSV 和验证报告。
 
 最终完成版 C3D 统一采用“原文件名末尾加 `g`”的命名方式。例如：
 
