@@ -25,6 +25,50 @@ python ".\scripts\run_full_grey_pipeline.py" `
 
 该脚本会自动完成正向、逆向、配套文件复制和最终验证。
 
+## 2.1 人工关键帧协作流程
+
+如果希望先让程序找出“最值得人工补全”的帧，使用下面命令。脚本会先连一轮，再根据剩余缺失人体点、同帧灰点数量、周围连续缺失情况计算推荐帧，然后停止，等待人工处理。
+
+```powershell
+python ".\scripts\run_full_grey_pipeline.py" `
+  --input-c3d "E:\vicon gpt\新实验\input.c3d" `
+  --model ".\model\1234.mkr" `
+  --output-root "E:\vicon gpt\新实验输出_关键帧推荐" `
+  --start-frame 起始帧 `
+  --end-frame 结束帧 `
+  --final-name "FIRST_PASS_FOR_MANUAL" `
+  --suggest-manual-frames `
+  --stop-after-suggestion
+```
+
+推荐结果位置：
+
+```text
+stage02_iter1_reverse_grey\report_suggest_manual_anchor_frames\suggested_manual_anchor_frames.csv
+```
+
+用户需要在 Nexus 中打开第一轮结果 C3D，按推荐帧人工连完整并保存。保存后，把这个人工保存后的 C3D 作为新的 `--input-c3d`，继续运行完整流程：
+
+```powershell
+python ".\scripts\run_full_grey_pipeline.py" `
+  --input-c3d "E:\vicon gpt\新实验输出_关键帧推荐\stage02_iter1_reverse_grey\人工保存后的文件.c3d" `
+  --model ".\model\1234.mkr" `
+  --output-root "E:\vicon gpt\新实验输出_最终版" `
+  --start-frame 起始帧 `
+  --end-frame 结束帧 `
+  --final-name "FINAL_GREY_ONLY" `
+  --second-iteration `
+  --connect-outside
+```
+
+该阶段会连续执行：
+
+- 第一轮正向和逆向灰点连接。
+- 第二轮正向和逆向灰点连接。
+- 从起始完整帧向前连接区间前段。
+- 从结束完整帧向后连接区间后段。
+- 全文件验证，确认没有新增点、没有删除点，所有新增人体点都来自同帧灰点。
+
 如需分步运行，可使用下面命令。
 
 ```powershell

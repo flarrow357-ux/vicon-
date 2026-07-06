@@ -31,6 +31,13 @@ pip install -r requirements.txt
 4. 最终验证新增人体点是否全部来自原始同帧灰点。
 5. 逐帧验证有效点总数是否完全不变。
 
+如果希望得到更高质量结果，推荐采用“人工关键帧协作流程”：
+
+1. 先自动连一轮，并让脚本推荐最值得人工补全的关键帧。
+2. 用户在 Nexus 中打开第一轮结果，把推荐帧人工连完整并保存。
+3. 再把人工保存后的 C3D 作为新输入，自动执行第一轮迭代、第二轮迭代和区间前后连接。
+4. 最终使用全文件验证，确认没有新增点、没有删除点，所有新人体点都来自同帧灰点。
+
 ```powershell
 python ".\scripts\run_full_grey_pipeline.py" `
   --input-c3d "E:\vicon gpt\新实验\1-3.c3d" `
@@ -39,6 +46,38 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --start-frame 2301 `
   --end-frame 2889 `
   --final-name "FINAL_GREY_ONLY"
+```
+
+人工关键帧推荐阶段：
+
+```powershell
+python ".\scripts\run_full_grey_pipeline.py" `
+  --input-c3d "E:\vicon gpt\新实验\1-3.c3d" `
+  --model ".\model\1234.mkr" `
+  --output-root "E:\vicon gpt\新实验输出_关键帧推荐" `
+  --start-frame 2301 `
+  --end-frame 2889 `
+  --final-name "FIRST_PASS_FOR_MANUAL" `
+  --suggest-manual-frames `
+  --stop-after-suggestion
+```
+
+推荐帧会写入：
+
+`stage02_iter1_reverse_grey/report_suggest_manual_anchor_frames/suggested_manual_anchor_frames.csv`
+
+人工补完推荐帧并保存后，继续完整自动流程：
+
+```powershell
+python ".\scripts\run_full_grey_pipeline.py" `
+  --input-c3d "E:\vicon gpt\新实验输出_关键帧推荐\stage02_iter1_reverse_grey\人工保存后的文件.c3d" `
+  --model ".\model\1234.mkr" `
+  --output-root "E:\vicon gpt\新实验输出_最终版" `
+  --start-frame 2301 `
+  --end-frame 2889 `
+  --final-name "FINAL_GREY_ONLY" `
+  --second-iteration `
+  --connect-outside
 ```
 
 如果验证没有通过，脚本会以失败状态退出，并在输出目录写出问题报告。
@@ -76,6 +115,7 @@ python ".\scripts\run_full_grey_pipeline.py" `
 - 其他人体 marker 保持 60 mm 搜索半径。
 - C7 已有效时，LBHD 可以在更严格刚体验证下适当放宽。
 - 正向完成后，可只逆向补连一次灰点。
+- 第一轮完成后，可推荐“最值得人工补全”的关键帧；人工补帧后再连续执行两轮迭代和区间前后连接。
 - 最终必须验证新增点全部来自同帧原始灰点。
 
 ## 复现保证
