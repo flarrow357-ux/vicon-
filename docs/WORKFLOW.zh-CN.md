@@ -127,6 +127,13 @@
 - 与 trial 对应的 `.x1d/.x2d/.xcp/.system/.history/.Trial.enf/.digitaldevices.xml` 等配套文件。
 - `report/` 目录，保存所有 accepted/skipped/search log CSV。
 
+最终完成版 C3D 统一采用“原文件名末尾加 `g`”的命名方式。例如：
+
+- `1-2.c3d` 输出为 `1-2g.c3d`
+- `2-2.c3d` 输出为 `2-2g.c3d`
+
+如果命令中手动提供的 `--final-name` 没有以 `g` 结尾，脚本会自动补 `g`，以保证不同电脑和不同操作者的最终文件命名一致。
+
 ## 7. 最终自查
 
 每次处理完成后必须检查：

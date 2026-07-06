@@ -19,11 +19,12 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --model ".\model\1234.mkr" `
   --output-root "E:\vicon gpt\新实验输出" `
   --start-frame 起始帧 `
-  --end-frame 结束帧 `
-  --final-name "FINAL_GREY_ONLY"
+  --end-frame 结束帧
 ```
 
 该脚本会自动完成正向、逆向、配套文件复制和最终验证。
+
+不填写 `--final-name` 时，最终文件名自动等于输入 C3D 文件名末尾加 `g`。例如输入 `2-2.c3d`，最终输出为 `2-2g.c3d`。如果手动填写的 `--final-name` 没有以 `g` 结尾，脚本也会自动补上。
 
 ## 2.1 人工关键帧协作流程
 
@@ -36,7 +37,6 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --output-root "E:\vicon gpt\新实验输出_关键帧推荐" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --final-name "FIRST_PASS_FOR_MANUAL" `
   --suggest-manual-frames `
   --stop-after-suggestion
 ```
@@ -56,7 +56,6 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --output-root "E:\vicon gpt\新实验输出_最终版" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --final-name "FINAL_GREY_ONLY" `
   --second-iteration `
   --connect-outside
 ```
@@ -123,7 +122,7 @@ python ".\scripts\reverse_grey_only_headtight.py" `
 ```powershell
 python ".\scripts\verify_grey_only_result.py" `
   --original-c3d "E:\vicon gpt\新实验\input.c3d" `
-  --final-c3d "E:\vicon gpt\新实验输出\stage02_reverse_once_grey\FINAL_GREY_ONLY.c3d" `
+  --final-c3d "E:\vicon gpt\新实验输出\stage02_iter1_reverse_grey\inputg_ITER1.c3d" `
   --model ".\model\1234.mkr" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `

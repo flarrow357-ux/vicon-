@@ -47,9 +47,10 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --model ".\model\1234.mkr" `
   --output-root "本地输出目录" `
   --start-frame 起始帧 `
-  --end-frame 结束帧 `
-  --final-name "FINAL_GREY_ONLY"
+  --end-frame 结束帧
 ```
+
+最终 C3D 文件名必须在原文件名末尾加 `g`。不填写 `--final-name` 时脚本会自动执行该规则；如果填写了没有以 `g` 结尾的名称，脚本也会自动补 `g`。
 
 ## 推荐的人机协作命令
 
@@ -62,7 +63,6 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --output-root "本地输出目录_关键帧推荐" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --final-name "FIRST_PASS_FOR_MANUAL" `
   --suggest-manual-frames `
   --stop-after-suggestion
 ```
@@ -76,7 +76,6 @@ python ".\scripts\run_full_grey_pipeline.py" `
   --output-root "本地输出目录_最终版" `
   --start-frame 起始帧 `
   --end-frame 结束帧 `
-  --final-name "FINAL_GREY_ONLY" `
   --second-iteration `
   --connect-outside
 ```

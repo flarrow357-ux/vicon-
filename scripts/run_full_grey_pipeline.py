@@ -42,6 +42,15 @@ def run_command(command):
     subprocess.run(command, check=True)
 
 
+def normalize_final_name(input_c3d: Path, requested_name: str | None) -> str:
+    name = requested_name or f"{input_c3d.stem}g"
+    if name.lower().endswith(".c3d"):
+        name = Path(name).stem
+    if not name.lower().endswith("g"):
+        name = f"{name}g"
+    return name
+
+
 def run_forward(scripts_dir: Path, input_c3d: Path, output_c3d: Path, report_dir: Path, args):
     copy_trial_sidecars(input_c3d, output_c3d)
     run_command(
@@ -165,7 +174,7 @@ def main():
     parser.add_argument("--output-root", required=True, type=Path)
     parser.add_argument("--start-frame", required=True, type=int)
     parser.add_argument("--end-frame", required=True, type=int)
-    parser.add_argument("--final-name", default="FINAL_GREY_ONLY")
+    parser.add_argument("--final-name")
     parser.add_argument("--radius", type=float, default=60.0)
     parser.add_argument("--head-radius", type=float, default=25.0)
     parser.add_argument("--lbhd-c7-radius", type=float, default=45.0)
@@ -181,6 +190,7 @@ def main():
     parser.add_argument("--second-iteration", action="store_true")
     parser.add_argument("--connect-outside", action="store_true")
     args = parser.parse_args()
+    args.final_name = normalize_final_name(args.input_c3d, args.final_name)
 
     scripts_dir = Path(__file__).resolve().parent
     args.output_root.mkdir(parents=True, exist_ok=True)
